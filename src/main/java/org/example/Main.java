@@ -1,6 +1,9 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,15 +62,21 @@ public class Main {
 
         /*
         STREAM: funcionalidad a partir de Java 8.
+        Envoltorio para estructuras de datos
+
             Ayudan a manipular las colecciones.
             DECLARALO:
+
             Stream<String> valoresString = Stream.of ("Antonio", "Maria");
+
             .stream() // convierte otra lista en stream
             .filter (expresion lambda) // qué quiero que se filtre
             .contains("a") // filtra si contiene la "s"
             .collect(Collectors.toList() // crea una lista
             .map(s -> s.ToUpperCase()) // el map recorre todos los valores
             .anyMatch(s -> s.contains("M")) // si algún valor lo contiene, da true
+            .distinct() // detecta repetidos
+            .sorted() // ordena elementos
          */
 
         //se podría decir que es funcional, ya que delega el control de flujo
@@ -85,6 +94,78 @@ public class Main {
                 .anyMatch(s -> s.contains("z"));
 
         System.out.println("Expresión booleana: " + streamDeBoolean);
+
+
+        List<String> strings = new ArrayList<>();
+        strings.add("enero");
+        strings.add("febrero");
+        Stream<String> streangs = strings.stream();
+
+        // FOREACH: no se puede encadenar con otra etapa del Stream
+
+        // forma 1: - Con expresion LAMBDA
+        streangs.forEach(s -> System.out.println("Mes: "+s));
+
+        // forma 2: - Con REFERENCIA a función
+        List<String> strings2 = new ArrayList<>();
+        strings2.add("enero");
+        strings2.add("febrero");
+        Stream<String> streangs2 = strings2.stream();
+        //               clase/método // método
+        streangs2.forEach(System.out::println);
+
+        //MAP
+
+        //ejemplo 1
+        List<String> numerosEnLetra = List.of("1", "2", "3", "4");
+
+        List<Integer> numerosEnNumeros = numerosEnLetra.stream()
+                .map(x -> Integer.parseInt(x))
+                .collect(Collectors.toList());
+
+        System.out.println("MAP para conversión de tipo: " + numerosEnLetra);
+
+        //ejemplo 2
+        List<String> palabras = List.of("a", "b", "codi");
+        palabras = palabras.stream()
+                .map(s -> s.toUpperCase())
+                .collect(Collectors.toList());
+        System.out.println("MAP para pasar a mayúsculas: " + palabras);
+
+
+        List<String> palabras2 = List.of("a", "b", "codi");
+        palabras2 = palabras2.stream()
+                .map(s -> s + "_MAPPER")
+                .collect(Collectors.toList());
+        System.out.println("MAP agregando _MAPPER" + palabras2);
+
+
+        //REDUCE - permiten convertir una lista de elementos X en un resultado Y
+        //el método reduce que recibe 2 parámetros:
+        // un acumulador como primero y un elemento como segundo .
+        //De esta forma realiza una funcionalidad de “reducción” convirtiendo
+        // una lista de elementos en un único resultado.
+        List<Integer> gastos= new ArrayList<Integer>();
+        gastos.add(100);
+        gastos.add(200);
+        gastos.add(300);
+
+        System.out.println("Resultado REDUCE: ");
+        gastos.stream().reduce((acumulador, numero)->
+        { return acumulador+numero;
+            //ifPresent toma de argumento un Consumer:
+            // si no está vacío, "acepta" el método (println)
+        }).ifPresent(System.out::println);
+
+
+
+
+
+
+
+
+
+
 
         /* INTERFAZ FUNCIONAL
         - Se declaran con @FunctionalInterface
@@ -113,9 +194,17 @@ public class Main {
         andThen // (Consumer <? super T> after)
 
         Consumer<String> consumidor = x -> sout(x); //sólo imprime la x
-        consumidor.accept("Buienvenido"); //imprime Bienvenido
-        procesar(x -> sout((x), "Biencenido2");
+        consumidor.accept("Bienvenido"); //imprime Bienvenido
+        procesar(x -> sout((x), "Bienvenido2");
+
+        --> EJEMPLO en clase referenceMethos
  */
+
+
+
+
+
+
 
     }
 }
