@@ -23,7 +23,7 @@ public class referenceMethods {
         expresion.accept(mensaje);
     }
     // Disponemos de otro metodo en la misma clase que cumple con el patron
-    // de la expresion lambda (reciba un parametro y no devuelva nada)
+    // de la expresion lambda (recibe un parametro y no devuelva nada)
     public static void saludar(String saludo) {
         System.out.println(saludo);
     }

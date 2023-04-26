@@ -2,8 +2,6 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -159,11 +157,32 @@ public class Main {
 
 
 
+        // EJEMPLO varios
+        // Mostrar los números pares, de una lista de String,
+        // sin repetir y ordenados
+        //Devolver lista de STRING
+        List<String> lista = new ArrayList<>();
+        lista.add("1");
+        lista.add("6");
+        lista.add("2");
+        lista.add("3");
+        lista.add("4");
+        lista.add("5");
+        lista.add("2");
 
 
+        List<String> listaInteger = lista.stream()
+                /* otro modo de Integer a String:
+                .map(s -> Integer.parseInt(s) */
+                .map(s -> Integer.parseInt(s))
+                .filter(s -> s % 2 == 0)
+                //.filter(s -> s <= 4)
+                .distinct() // quita repetidos
+                .sorted() // los ordena
+                .map(s -> String.valueOf(s))
+                .collect(Collectors.toList());
 
-
-
+        System.out.println("NUEVA LISTA: " + listaInteger);
 
 
 
@@ -192,10 +211,6 @@ public class Main {
         Tiene dos métodos:
         void accept(T t) // acepta un valor, y no devuelve nada
         andThen // (Consumer <? super T> after)
-
-        Consumer<String> consumidor = x -> sout(x); //sólo imprime la x
-        consumidor.accept("Bienvenido"); //imprime Bienvenido
-        procesar(x -> sout((x), "Bienvenido2");
 
         --> EJEMPLO en clase referenceMethos
  */
