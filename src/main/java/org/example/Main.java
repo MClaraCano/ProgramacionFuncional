@@ -173,13 +173,13 @@ public class Main {
 
         List<String> listaInteger = lista.stream()
                 /* otro modo de Integer a String:
-                .map(s -> Integer.parseInt(s) */
+                .map(s -> Integer.valueOf(s) */
                 .map(s -> Integer.parseInt(s))
                 .filter(s -> s % 2 == 0)
                 //.filter(s -> s <= 4)
                 .distinct() // quita repetidos
                 .sorted() // los ordena
-                .map(s -> String.valueOf(s))
+                .map(String::valueOf) // por detrás se crea una expresión lambda (implementación de interfaz funcional)
                 .collect(Collectors.toList());
 
         System.out.println("NUEVA LISTA: " + listaInteger);
@@ -188,32 +188,19 @@ public class Main {
 
         /* INTERFAZ FUNCIONAL
         - Se declaran con @FunctionalInterface
+        (hacerlo, ayuda a saber si la declaramos bien)
         - Tienen un solo método abstracto (a dif de las otras, que tiene todas)
-        - Ese método abstracto, se representa con una expresión lambda
+        - Ese método abstracto, se representa al implementarlo
+        con una expresión lambda o método referenciado
 
-        Ejemplo:
-
-        interface operacion {
-            public int suma(int x, int y);
-        }
-    el cuerpo del método se genera en otra clase
-
-        operacion 1 = (x,y) -> x + y;
-        sout(1.suma(8,30));
+        Las más utilizadas:
+        CONSUMER tiene método: void accept(T t) // acepta un objeto, y no devuelve nada
+        PREDICATE tiene médoto: boolean test(T t) // devuelve V o F
 
          */
 
-/*
-        MÉTODOS REFERENCIADOS
 
-        CONSUMER: Interfaz funcional (a partir de Java 8)
-        Ayuda a hacer procesamientos sobre objetos
-        Tiene dos métodos:
-        void accept(T t) // acepta un valor, y no devuelve nada
-        andThen // (Consumer <? super T> after)
 
-        --> EJEMPLO en clase referenceMethos
- */
 
 
 
